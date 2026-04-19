@@ -126,11 +126,11 @@
     <div id="sydney-map"></div>
     <div class="legend-wrap">
       <div class="legend">
-        <div class="li"><div class="lc" style="background:#4caf50"></div> 住宿</div>
-        <div class="li"><div class="lc" style="background:#0066cc"></div> 5/4 海港经典</div>
-        <div class="li"><div class="lc" style="background:#e65100"></div> 5/5 动物园+Surry Hills</div>
-        <div class="li"><div class="lc" style="background:#7b1fa2"></div> 5/6 Bondi步道+Manly</div>
-        <div class="li"><div class="lc" style="background:#c62828"></div> 5/3 Gerringong方向</div>
+        <div class="li"><div class="lc" style="background:#4caf50"></div> 住宿：Ermington</div>
+        <div class="li"><div class="lc" style="background:#0066cc"></div> 5/4 Taronga+海港环线·AGNSW</div>
+        <div class="li"><div class="lc" style="background:#7b1fa2"></div> 5/5 Bondi步道+Manly渡轮</div>
+        <div class="li"><div class="lc" style="background:#2e7d32"></div> 5/6 Surry Hills+悉尼大学+鱼市场</div>
+        <div class="li"><div class="lc" style="background:#c62828"></div> 5/3 Gerringong方向（南方约100km）</div>
       </div>
     </div>
   </div>
@@ -215,13 +215,21 @@ function initSydney() {
     { latlng: [-33.8845, 151.2108], color: '#e65100', emoji: '🛍', label: 'Surry Hills',
       popup: '<b>🛍 Surry Hills</b><br>5/5 下午 13:30起<br>Crown Street·悉尼最有本地腔调的街区<br>独立咖啡馆·书店·vintage' },
 
-    // 5/6 Bondi+Manly
+    // 5/5 Bondi+Manly
     { latlng: [-33.8915, 151.2767], color: '#7b1fa2', emoji: '🏖', label: 'Bondi',
-      popup: '<b>🏖 Bondi Beach</b><br>5/6 08:30抵达<br>步道起点·早午餐' },
+      popup: '<b>🏖 Bondi Beach</b><br>5/5 08:30抵达<br>步道起点·早午餐' },
     { latlng: [-33.9202, 151.2597], color: '#7b1fa2', emoji: '🌊', label: 'Coogee',
-      popup: '<b>🌊 Coogee Beach</b><br>5/6 步道终点<br>Bondi→Coogee 6km海岸徒步' },
+      popup: '<b>🌊 Coogee Beach</b><br>5/5 步道终点<br>Bondi→Coogee 6km海岸徒步' },
     { latlng: [-33.7969, 151.2886], color: '#7b1fa2', emoji: '⛴', label: 'Manly',
-      popup: '<b>⛴ Manly Beach</b><br>5/6 下午渡轮前往<br>从Circular Quay坐F1渡轮约30分钟·AUD 8.6' },
+      popup: '<b>⛴ Manly Beach</b><br>5/5 下午渡轮前往<br>从Circular Quay坐F1渡轮约30分钟·AUD 8.6' },
+
+    // 5/6 Surry Hills + 悉尼大学 + 鱼市场
+    { latlng: [-33.8845, 151.2108], color: '#2e7d32', emoji: '🛍', label: 'Surry Hills',
+      popup: '<b>🛍 Surry Hills</b><br>5/6 上午 10:30<br>Crown Street·咖啡馆·vintage·本地街区' },
+    { latlng: [-33.8888, 151.1873], color: '#2e7d32', emoji: '🎓', label: '悉尼大学',
+      popup: '<b>🎓 悉尼大学</b><br>5/6 11:30 免费<br>Main Quadrangle哥特式建筑·随时进入参观' },
+    { latlng: [-33.8717, 151.1960], color: '#2e7d32', emoji: '🐟', label: '鱼市场',
+      popup: '<b>🐟 悉尼鱼市场（新馆）⭐</b><br>5/6 午餐 12:30<br>1 Bridge Rd, Glebe · 07:00–22:00<br>2025年10月全新开业！水边吃海鲜' },
 
     // 5/3 Gerringong方向参考点
     { latlng: [-34.6690, 150.8548], color: '#c62828', emoji: '💦', label: 'Kiama',
