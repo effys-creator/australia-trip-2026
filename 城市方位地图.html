@@ -15,108 +15,41 @@
   }
   h1 { text-align: center; font-size: 20px; font-weight: 700; margin-bottom: 4px; }
   .sub { text-align: center; font-size: 12px; color: #888; margin-bottom: 16px; }
-
   .tabs {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
-    justify-content: center;
+    display: flex; gap: 8px; margin-bottom: 12px; justify-content: center;
   }
   .tab {
-    padding: 8px 24px;
-    border-radius: 20px;
-    border: none;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: #e0e0d8;
-    color: #666;
+    padding: 8px 24px; border-radius: 20px; border: none;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    background: #e0e0d8; color: #666; transition: all 0.2s;
   }
-  .tab.active {
-    background: #1a1a1a;
-    color: #fff;
-  }
-
+  .tab.active { background: #1a1a1a; color: #fff; }
   .map-container { display: none; }
   .map-container.active { display: block; }
-
   .map-wrap {
-    background: #fff;
-    border-radius: 16px;
-    overflow: hidden;
+    background: #fff; border-radius: 16px; overflow: hidden;
     box-shadow: 0 2px 12px rgba(0,0,0,0.1);
   }
-  .map-header {
-    padding: 12px 16px 10px;
-    border-bottom: 1px solid #f0f0f0;
-  }
+  .map-header { padding: 12px 16px 10px; border-bottom: 1px solid #f0f0f0; }
   .map-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
   .map-note { font-size: 11px; color: #999; }
-
-  #sydney-map, #melb-map {
-    height: 480px;
-    width: 100%;
-  }
-
-  .legend-wrap {
-    padding: 10px 16px 12px;
-    border-top: 1px solid #f0f0f0;
-  }
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 14px;
-    font-size: 11.5px;
-    color: #444;
-  }
+  #sydney-map, #melb-map { height: 500px; width: 100%; }
+  .legend-wrap { padding: 10px 16px 12px; border-top: 1px solid #f0f0f0; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 11.5px; color: #444; }
   .li { display: flex; align-items: center; gap: 5px; }
-  .lc {
-    width: 12px; height: 12px;
-    border-radius: 50%; flex-shrink: 0;
-  }
-
-  /* 自定义marker */
-  .custom-marker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .marker-pin {
-    width: 32px; height: 32px;
-    border-radius: 50% 50% 50% 0;
-    transform: rotate(-45deg);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-  }
-  .marker-pin span {
-    transform: rotate(45deg);
-    font-size: 14px;
-    display: block;
-  }
-  .marker-label {
-    background: white;
-    border-radius: 4px;
-    padding: 2px 5px;
-    font-size: 10px;
-    font-weight: 600;
-    white-space: nowrap;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    margin-top: 2px;
-  }
+  .lc { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
 </style>
 </head>
 <body>
 
 <h1>🗺 景点方位地图</h1>
-<p class="sub">基于真实地图 · 点击标注查看详情</p>
+<p class="sub">点击图钉查看详情 · 可缩放拖动</p>
 
 <div class="tabs">
   <button class="tab active" onclick="switchCity('sydney')">🏖 悉尼 Sydney</button>
   <button class="tab" onclick="switchCity('melb')">🏙 墨尔本 Melbourne</button>
 </div>
 
-<!-- 悉尼 -->
 <div id="sydney-container" class="map-container active">
   <div class="map-wrap">
     <div class="map-header">
@@ -126,17 +59,16 @@
     <div id="sydney-map"></div>
     <div class="legend-wrap">
       <div class="legend">
-        <div class="li"><div class="lc" style="background:#4caf50"></div> 住宿：Ermington</div>
-        <div class="li"><div class="lc" style="background:#0066cc"></div> 5/4 Taronga+海港环线·AGNSW</div>
-        <div class="li"><div class="lc" style="background:#7b1fa2"></div> 5/5 Bondi步道+Manly渡轮</div>
-        <div class="li"><div class="lc" style="background:#2e7d32"></div> 5/6 Surry Hills+悉尼大学+鱼市场</div>
-        <div class="li"><div class="lc" style="background:#c62828"></div> 5/3 Gerringong方向（南方约100km）</div>
+        <div class="li"><div class="lc" style="background:#4caf50"></div> 住宿</div>
+        <div class="li"><div class="lc" style="background:#c62828"></div> 5/3 Gerringong自驾</div>
+        <div class="li"><div class="lc" style="background:#0066cc"></div> 5/4 Taronga+Only Coffee+Manly</div>
+        <div class="li"><div class="lc" style="background:#7b1fa2"></div> 5/5 海港+步道+Watson Bay</div>
+        <div class="li"><div class="lc" style="background:#e65100"></div> 5/6 The Rocks+悉尼大学+鱼市场+Surry Hills</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 墨尔本 -->
 <div id="melb-container" class="map-container">
   <div class="map-wrap">
     <div class="map-header">
@@ -147,9 +79,10 @@
     <div class="legend-wrap">
       <div class="legend">
         <div class="li"><div class="lc" style="background:#4caf50"></div> 住宿</div>
-        <div class="li"><div class="lc" style="background:#e65100"></div> 5/9 城区漫步</div>
+        <div class="li"><div class="lc" style="background:#e65100"></div> 5/7 CBD北段漫步</div>
+        <div class="li"><div class="lc" style="background:#1565c0"></div> 5/9 CBD南段+咖啡</div>
         <div class="li"><div class="lc" style="background:#bf360c"></div> 5/9 F1专属</div>
-        <div class="li"><div class="lc" style="background:#6a1b9a"></div> 5/9 St Kilda企鹅</div>
+        <div class="li"><div class="lc" style="background:#6a1b9a"></div> 5/9 日落+企鹅</div>
         <div class="li"><div class="lc" style="background:#546e7a"></div> 机场</div>
       </div>
     </div>
@@ -157,220 +90,198 @@
 </div>
 
 <script>
-// ===== 地图初始化 =====
 let sydneyMap, melbMap, sydneyInited = false, melbInited = false;
 
-function makeIcon(color, emoji, label) {
+// 使用CARTO浅色地图（国内可访问）
+const tileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+const tileAttr = '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>';
+
+function makePin(color, emoji, label) {
   return L.divIcon({
     className: '',
-    html: `<div class="custom-marker">
-      <div class="marker-pin" style="background:${color}"><span>${emoji}</span></div>
-      <div class="marker-label" style="color:${color}">${label}</div>
+    html: `<div style="display:flex;flex-direction:column;align-items:center">
+      <div style="width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+        background:${color};box-shadow:0 2px 6px rgba(0,0,0,0.3);
+        display:flex;align-items:center;justify-content:center">
+        <span style="transform:rotate(45deg);font-size:15px">${emoji}</span>
+      </div>
+      <div style="background:white;border-radius:4px;padding:2px 5px;font-size:10px;
+        font-weight:700;color:${color};white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,0.2);
+        margin-top:2px;font-family:-apple-system,PingFang SC,sans-serif">${label}</div>
     </div>`,
-    iconSize: [60, 52],
-    iconAnchor: [30, 38],
-    popupAnchor: [0, -40]
+    iconSize: [80, 54], iconAnchor: [40, 42], popupAnchor: [0, -44]
   });
 }
 
 function initSydney() {
-  if (sydneyInited) return;
-  sydneyInited = true;
-
-  sydneyMap = L.map('sydney-map').setView([-33.82, 151.12], 12);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors',
-    maxZoom: 18
-  }).addTo(sydneyMap);
+  if (sydneyInited) return; sydneyInited = true;
+  sydneyMap = L.map('sydney-map', {zoomControl: true}).setView([-33.87, 151.21], 12);
+  L.tileLayer(tileUrl, {attribution: tileAttr, maxZoom: 19, subdomains: 'abcd'}).addTo(sydneyMap);
 
   const spots = [
     // 住宿
-    { latlng: [-33.8233, 151.0603], color: '#4caf50', emoji: '🏠', label: '姐姐家',
-      popup: '<b>🏠 Ermington（住宿）</b><br>10A Eccles St, Ermington<br>最近：Rydalmere Station 步行约15分钟' },
+    {ll:[-33.8233,151.0603], c:'#4caf50', e:'🏠', l:'姐姐家',
+     p:'<b>🏠 住宿 Ermington</b><br>10A Eccles St, Ermington<br>最近：Rydalmere Station 步行约15分钟'},
 
-    // AGNSW 新南威尔士美术馆
-    { latlng: [-33.8686, 151.2172], color: '#0066cc', emoji: '🖼', label: 'AGNSW',
-      popup: '<b>🖼 新南威尔士美术馆 AGNSW</b><br>5/4 09:15到，10:00开门<br>免费·常设展·南楼+新北楼<br>每天 10:00–17:00（周三至22:00）' },
+    // 5/3 Gerringong
+    {ll:[-34.6690,150.8548], c:'#c62828', e:'💦', l:'Kiama',
+     p:'<b>💦 Kiama Blowhole</b><br>5/3 自驾一日游<br>出发前查潮汐时间！'},
+    {ll:[-34.7278,150.8362], c:'#c62828', e:'🏔', l:'Gerringong',
+     p:'<b>🏔 Gerringong Lookout</b><br>5/3 下午<br>绿色牧场+碧蓝大海·Werri Beach·Seven Mile Beach'},
 
-    // 5/5 Watson Bay + Totti's
-    { latlng: [-33.8448, 151.2806], color: '#7b1fa2', emoji: '🌅', label: 'Watson Bay',
-      popup: '<b>🌅 Watson Bay · Gap Park</b><br>5/5 16:00 看日落<br>5月日落约17:30·F9渡轮回CQ约23分钟' },
-    { latlng: [-33.8925, 151.2733], color: '#7b1fa2', emoji: '🍝', label: "Totti's",
-      popup: "<b>🍝 Totti's Bondi</b><br>283 Bondi Rd · 5/5 步道走完在此午餐<br>手工意面+柴烧披萨 · ⚠️ 提前在Merivale官网订位！" },
+    // 5/4
+    {ll:[-33.8437,151.2413], c:'#0066cc', e:'🦁', l:'Taronga Zoo',
+     p:'<b>🦁 Taronga Zoo</b><br>5/4 上午 09:30–12:30<br>AUD 55·渡轮直达·考拉近距离'},
+    {ll:[-33.8295,151.2238], c:'#0066cc', e:'☕', l:'Only Coffee',
+     p:'<b>☕ Only Coffee Project</b><br>5/4 约12:30<br>Shop 2/118 Willoughby Rd, Crows Nest<br><b>⚠️ 14:00关门！</b>全澳最佳咖啡之一'},
+    {ll:[-33.7969,151.2886], c:'#0066cc', e:'⛴', l:'Manly',
+     p:'<b>⛴ Manly Beach</b><br>5/4 下午渡轮前往<br>从Circular Quay坐F1渡轮约30分钟·AUD 8.6'},
 
-    // 圣玛丽大教堂
-    { latlng: [-33.8686, 151.2131], color: '#0066cc', emoji: '⛪', label: '圣玛丽大教堂',
-      popup: '<b>⛪ 圣玛丽大教堂</b><br>5/4 午后 13:30<br>免费·哥特式建筑·海德公园旁<br>每天 06:30–18:30开放' },
+    // 5/5
+    {ll:[-33.8587,151.2197], c:'#7b1fa2', e:'📸', l:'麦考利角',
+     p:'<b>📸 麦考利夫人角</b><br>5/5 上午<br>拍歌剧院+大桥同框最佳机位·免费'},
+    {ll:[-33.8682,151.2093], c:'#7b1fa2', e:'🎨', l:'AGNSW',
+     p:'<b>🎨 AGNSW 新南威尔士美术馆</b><br>5/5 上午<br>免费·刚完成扩建·紧邻植物园'},
+    {ll:[-33.8688,151.2121], c:'#7b1fa2', e:'⛪', l:'圣玛丽堂',
+     p:'<b>⛪ 圣玛丽大教堂</b><br>5/5 上午<br>每天06:30–18:30·免费·哥特式建筑'},
+    {ll:[-33.9202,151.2597], c:'#7b1fa2', e:'🌊', l:'Coogee',
+     p:'<b>🌊 Coogee Beach</b><br>5/5 步道起点<br>Coogee→Bondi 6km反向步道'},
+    {ll:[-33.8956,151.2747], c:'#7b1fa2', e:'🏊', l:'Icebergs',
+     p:'<b>🏊 Bondi Icebergs</b><br>5/5 步道终点打卡<br>30 Notts Ave·悬崖边海浪泳池<br>拍照免费·悉尼最上镜地标'},
+    {ll:[-33.8415,151.3022], c:'#7b1fa2', e:'🌅', l:'Watson Bay',
+     p:'<b>🌅 Watson Bay · Gap Park</b><br>5/5 日落<br>5月日落约17:30·悬崖俯瞰海港入口<br>F9渡轮回CQ约23分钟'},
 
-    // Circular Quay 傍晚
-    { latlng: [-33.8614, 151.2102], color: '#0066cc', emoji: '🌅', label: 'CQ傍晚⭐',
-      popup: '<b>🌅 Circular Quay 傍晚黄金时段</b><br>5/4 17:30–18:30<br>夕阳打在歌剧院+大桥上，金色光线<br>Opera Bar喝一杯完美收尾' },
+    // 5/6
+    {ll:[-33.8600,151.2093], c:'#e65100', e:'⚓', l:'The Rocks',
+     p:'<b>⚓ The Rocks</b><br>5/6 上午<br>悉尼最古老历史街区·殖民建筑·博物馆'},
+    {ll:[-33.8523,151.2108], c:'#e65100', e:'🌉', l:'海港大桥',
+     p:'<b>🌉 海港大桥 徒步</b><br>5/6 上午<br>免费穿越·约40分钟'},
+    {ll:[-33.8882,151.1873], c:'#e65100', e:'🎓', l:'悉尼大学',
+     p:'<b>🎓 悉尼大学 Main Quad</b><br>5/6 下午<br>哥特式建筑·免费进入'},
+    {ll:[-33.8712,151.1892], c:'#e65100', e:'🐟', l:'鱼市场',
+     p:'<b>🐟 悉尼鱼市场新馆</b><br>5/6 午饭<br>Glebe Blackwattle Bay·2025年10月新开·水边海鲜'},
+    {ll:[-33.8845,151.2108], c:'#e65100', e:'🛍', l:'Surry Hills',
+     p:'<b>🛍 Surry Hills</b><br>5/6 下午<br>Crown Street·独立咖啡馆·vintage·书店'},
+    {ll:[-33.8832,151.2266], c:'#e65100', e:'🏘', l:'Paddington',
+     p:'<b>🏘 Paddington</b><br>5/6 下午延伸<br>Oxford Street·设计师小店·画廊'},
 
-
-      popup: '<b>🎭 悉尼歌剧院</b><br>5/4 海港经典环线<br>外观打卡·内部导览AUD 49（可选）' },
-    { latlng: [-33.8587, 151.2197], color: '#0066cc', emoji: '📸', label: '麦考利角',
-      popup: '<b>📸 麦考利夫人角</b><br>5/4 海港经典<br>拍歌剧院+大桥同框最佳机位·免费' },
-    { latlng: [-33.8600, 151.2093], color: '#0066cc', emoji: '⚓', label: 'The Rocks',
-      popup: '<b>⚓ The Rocks</b><br>5/4 周一 14:00<br>悉尼最古老历史街区·殖民建筑·咖啡馆' },
-    { latlng: [-33.8523, 151.2108], color: '#0066cc', emoji: '🌉', label: '海港大桥',
-      popup: '<b>🌉 海港大桥</b><br>5/4 徒步穿越 15:30<br>从The Rocks步行上桥·免费·约40分钟' },
-
-    // 5/4 Taronga Zoo + Only Coffee + Manly
-    { latlng: [-33.8437, 151.2413], color: '#e65100', emoji: '🦁', label: 'Taronga Zoo',
-      popup: '<b>🦁 Taronga Zoo</b><br>5/4 上午 10:00–12:00<br>AUD 55·渡轮直达·可近距离看考拉' },
-    { latlng: [-33.8270, 151.2047], color: '#e65100', emoji: '☕', label: 'Only Coffee ⭐',
-      popup: '<b>☕ Only Coffee Project</b><br>5/4 约12:15<br>Shop 2/118 Willoughby Rd, Crows Nest<br>⚠️ 14:00关门·全澳百佳咖啡·只卖咖啡<br>点Magic或Flat White' },
-    { latlng: [-33.7969, 151.2886], color: '#e65100', emoji: '⛴', label: 'Manly',
-      popup: '<b>⛴ Manly Beach</b><br>5/4 下午渡轮前往<br>从Manly Ferry Terminal坐渡轮·约30分钟·AUD 8.6' },
-
-    // 5/5 Bondi步道+Coogee
-    { latlng: [-33.8915, 151.2767], color: '#7b1fa2', emoji: '🏖', label: 'Bondi',
-      popup: '<b>🏖 Bondi Beach</b><br>5/5 08:30抵达<br>步道起点·早午餐' },
-    { latlng: [-33.9202, 151.2597], color: '#7b1fa2', emoji: '🌊', label: 'Coogee',
-      popup: '<b>🌊 Coogee Beach</b><br>5/5 步道起点<br>Coogee→Bondi 6km海岸步道（反向走）' },
-
-    // Bondi Icebergs
-    { latlng: [-33.8956, 151.2747], color: '#7b1fa2', emoji: '🏊', label: 'Icebergs',
-      popup: '<b>🏊 Bondi Icebergs</b><br>5/5 步道终点必打卡<br>30 Notts Ave · 悬崖边海浪泳池<br>拍照免费，悉尼最上镜地标' },
-
-    // Surry Hills
-    { latlng: [-33.8845, 151.2108], color: '#e65100', emoji: '🛍', label: 'Surry Hills',
-      popup: '<b>🛍 Surry Hills</b><br>5/6 文艺慢游<br>Crown Street · 独立咖啡馆·vintage·书店' },
-
-    // 悉尼大学
-    { latlng: [-33.8882, 151.1873], color: '#e65100', emoji: '🎓', label: '悉尼大学',
-      popup: '<b>🎓 悉尼大学 Main Quadrangle</b><br>5/6<br>哥特式建筑·免费进入·必拍' },
-
-    // 悉尼鱼市场
-    { latlng: [-33.8712, 151.1892], color: '#e65100', emoji: '🐟', label: '鱼市场',
-      popup: '<b>🐟 悉尼鱼市场新馆</b><br>5/6 可选<br>Glebe Blackwattle Bay · 2025年10月新开<br>水边吃新鲜海鲜' },
-
-    // 5/6 海港环线+弹性
-    { latlng: [-33.8845, 151.2108], color: '#2e7d32', emoji: '🛍', label: 'Surry Hills（可选）',
-      popup: '<b>🛍 Surry Hills</b><br>5/6 弹性选项<br>Crown Street·咖啡馆·vintage·本地街区' },
-    { latlng: [-33.8888, 151.1873], color: '#2e7d32', emoji: '🎓', label: '悉尼大学（可选）',
-      popup: '<b>🎓 悉尼大学</b><br>5/6 11:30 免费<br>Main Quadrangle哥特式建筑·随时进入参观' },
-    { latlng: [-33.8717, 151.1960], color: '#2e7d32', emoji: '🐟', label: '鱼市场',
-      popup: '<b>🐟 悉尼鱼市场（新馆）⭐</b><br>5/6 午餐 12:30<br>1 Bridge Rd, Glebe · 07:00–22:00<br>2025年10月全新开业！水边吃海鲜' },
-
-    // 5/3 Gerringong方向参考点
-    { latlng: [-34.6690, 150.8548], color: '#c62828', emoji: '💦', label: 'Kiama',
-      popup: '<b>💦 Kiama Blowhole</b><br>5/3 周日 自驾一日游<br>世界级天然喷水孔·出发前查潮汐时间！' },
-    { latlng: [-34.7278, 150.8362], color: '#c62828', emoji: '🏔', label: 'Gerringong',
-      popup: '<b>🏔 Gerringong</b><br>5/3 下午<br>Lookout俯瞰绿色牧场+碧蓝大海·Werri Beach·Seven Mile Beach' },
+    // 通用
+    {ll:[-33.8568,151.2153], c:'#888', e:'🎭', l:'歌剧院',
+     p:'<b>🎭 悉尼歌剧院</b><br>多天路过·外观免费<br>导览AUD 49（可选）'},
+    {ll:[-33.8600,151.2110], c:'#888', e:'⛴', l:'Circular Quay',
+     p:'<b>⛴ Circular Quay</b><br>渡轮枢纽·傍晚夕阳最美<br>5/5傍晚F9渡轮从此回来'},
   ];
 
   spots.forEach(s => {
-    L.marker(s.latlng, { icon: makeIcon(s.color, s.emoji, s.label) })
-      .addTo(sydneyMap)
-      .bindPopup(s.popup);
+    L.marker(s.ll, {icon: makePin(s.c, s.e, s.l)})
+      .addTo(sydneyMap).bindPopup(s.p, {maxWidth: 220});
   });
 
-  // Bondi→Coogee步道线
-  L.polyline([
-    [-33.8915, 151.2767],
-    [-33.9011, 151.2764],
-    [-33.9094, 151.2714],
-    [-33.9151, 151.2681],
-    [-33.9202, 151.2597]
-  ], { color: '#7b1fa2', weight: 2.5, dashArray: '6,4', opacity: 0.7 }).addTo(sydneyMap);
-
-  // 渡轮路线 CQ→Taronga
-  L.polyline([
-    [-33.8600, 151.2093],
-    [-33.8437, 151.2413]
-  ], { color: '#0066cc', weight: 2, dashArray: '5,4', opacity: 0.6 }).addTo(sydneyMap);
-
-  // 渡轮路线 CQ→Manly
-  L.polyline([
-    [-33.8600, 151.2093],
-    [-33.7969, 151.2886]
-  ], { color: '#0066cc', weight: 2, dashArray: '5,4', opacity: 0.6 }).addTo(sydneyMap);
+  // 步道线 Coogee→Bondi
+  L.polyline([[-33.9202,151.2597],[-33.9094,151.2714],[-33.8956,151.2747]],
+    {color:'#7b1fa2', weight:2.5, dashArray:'6,4', opacity:0.7}).addTo(sydneyMap);
+  // 渡轮 CQ→Taronga
+  L.polyline([[-33.8600,151.2110],[-33.8437,151.2413]],
+    {color:'#0066cc', weight:2, dashArray:'5,4', opacity:0.6}).addTo(sydneyMap);
+  // 渡轮 CQ→Manly
+  L.polyline([[-33.8600,151.2110],[-33.7969,151.2886]],
+    {color:'#0066cc', weight:2, dashArray:'5,4', opacity:0.6}).addTo(sydneyMap);
+  // 渡轮 CQ→Watson Bay
+  L.polyline([[-33.8600,151.2110],[-33.8415,151.3022]],
+    {color:'#7b1fa2', weight:2, dashArray:'5,4', opacity:0.6}).addTo(sydneyMap);
 }
 
 function initMelb() {
-  if (melbInited) return;
-  melbInited = true;
-
-  melbMap = L.map('melb-map').setView([-37.84, 144.97], 13);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors',
-    maxZoom: 18
-  }).addTo(melbMap);
+  if (melbInited) return; melbInited = true;
+  melbMap = L.map('melb-map', {zoomControl: true}).setView([-37.82, 144.97], 13);
+  L.tileLayer(tileUrl, {attribution: tileAttr, maxZoom: 19, subdomains: 'abcd'}).addTo(melbMap);
 
   const spots = [
     // 住宿
-    { latlng: [-37.7982, 144.9786], color: '#4caf50', emoji: '🏨', label: 'The StandardX',
-      popup: '<b>🏨 The StandardX</b><br>Fitzroy · 住宿 5/7–5/10<br>步行10分钟到Industry Beans' },
+    {ll:[-37.7982,144.9786], c:'#4caf50', e:'🏨', l:'The StandardX',
+     p:'<b>🏨 The StandardX · Fitzroy</b><br>住宿 5/7–5/10<br>Smith St / Johnston St'},
 
     // 机场
-    { latlng: [-37.6690, 144.8410], color: '#546e7a', emoji: '✈️', label: 'MEL机场',
-      popup: '<b>✈️ 墨尔本机场 MEL</b><br>5/7落地·5/10 11:35起飞<br>SkyBus到Southern Cross约30分钟·AUD 22' },
+    {ll:[-37.6690,144.8410], c:'#546e7a', e:'✈️', l:'MEL机场',
+     p:'<b>✈️ 墨尔本机场 MEL</b><br>5/7落地·5/10 11:35起飞<br>SkyBus约30分钟·AUD 22'},
 
-    // 5/9 城区
-    { latlng: [-37.8081, 144.9567], color: '#e65100', emoji: '🛒', label: 'QVM',
-      popup: '<b>🛒 Queen Victoria Market</b><br>5/9 上午 09:00起<br>步行约25分钟·周六06:00–15:00·买伴手礼' },
-    { latlng: [-37.8097, 144.9644], color: '#e65100', emoji: '📚', label: 'State Library',
-      popup: '<b>📚 State Library Victoria</b><br>5/9 13:30<br>八角形阅览室·免费·IG打卡圣地<br>Mon–Thu 10:00–21:00' },
-    { latlng: [-37.8180, 144.9686], color: '#e65100', emoji: '🎨', label: 'Hosier Lane',
-      popup: '<b>🎨 Hosier Lane 涂鸦巷</b><br>5/9 下午<br>全球知名街头艺术·每天更新·Federation Square旁' },
-    { latlng: [-37.8182, 144.9660], color: '#e65100', emoji: '☕', label: 'Degraves St',
-      popup: '<b>☕ Degraves Street</b><br>5/9 中午咖啡+午饭<br>墨尔本咖啡文化最浓缩的街巷' },
+    // 5/7 CBD北段
+    {ll:[-37.8050,144.9590], c:'#e65100', e:'🥐', l:'Lune Croissanterie',
+     p:'<b>🥐 Lune Croissanterie</b><br>5/7 下午约15:00<br>119 Rose St, Fitzroy·全球第一可颂<br>⚠️ 越早越好会卖完'},
+    {ll:[-37.8081,144.9567], c:'#e65100', e:'☕', l:'Market Lane',
+     p:'<b>☕ Market Lane Coffee</b><br>5/7 约15:30<br>QVM内 Victoria St·全球供应豆子品牌'},
+    {ll:[-37.8068,144.9551], c:'#e65100', e:'🛒', l:'QVM',
+     p:'<b>🛒 Queen Victoria Market</b><br>5/7顺路·5/9上午买伴手礼<br>周二休息·周六06:00–15:00'},
+    {ll:[-37.8047,144.9658], c:'#e65100', e:'🌿', l:'卡尔顿花园',
+     p:'<b>🌿 卡尔顿花园 + 墨尔本博物馆</b><br>5/7 约16:00<br>博物馆AUD 15·免费花园'},
+    {ll:[-37.8097,144.9644], c:'#e65100', e:'📚', l:'州立图书馆',
+     p:'<b>📚 State Library Victoria</b><br>5/7 约16:45<br>八角形La Trobe阅览室·免费·IG必拍'},
+    {ll:[-37.8119,144.9690], c:'#e65100', e:'🏮', l:'唐人街',
+     p:'<b>🏮 唐人街</b><br>5/7 晚饭<br>Chinatown Melbourne'},
+
+    // 5/9 CBD南段咖啡
+    {ll:[-37.8128,144.9638], c:'#1565c0', e:'☕', l:'Patricia',
+     p:'<b>☕ Patricia Coffee Brewers</b><br>5/9 08:00开始·全澳第一<br>493 Little Bourke St·进小巷后门<br>⚠️ 16:00关门'},
+    {ll:[-37.8133,144.9640], c:'#1565c0', e:'☕', l:'Brother Baba',
+     p:'<b>☕ Brother Baba Budan</b><br>5/9 Patricia步行2分钟<br>359 Little Bourke St·全球第19<br>⚠️ 约16:00关门'},
+    {ll:[-37.8181,144.9660], c:'#1565c0', e:'🎨', l:'Hosier Lane',
+     p:'<b>🎨 Hosier Lane 涂鸦巷</b><br>5/9 上午<br>全球知名街头艺术·Federation Square旁'},
+    {ll:[-37.8182,144.9656], c:'#1565c0', e:'⛪', l:'圣保罗堂',
+     p:'<b>⛪ 圣保罗教堂 + Flinders St车站</b><br>5/9 上午<br>周董同款打卡点'},
+    {ll:[-37.8163,144.9644], c:'#1565c0', e:'☕', l:'Degraves St',
+     p:'<b>☕ Degraves Street</b><br>5/9 午饭+咖啡<br>墨尔本最浓缩咖啡街巷'},
+    {ll:[-37.8031,144.9688], c:'#1565c0', e:'☕', l:'Good Measure',
+     p:'<b>☕ Good Measure</b><br>5/9 下午约13:00<br>Lygon St, Carlton<br>必点Mont Blanc冰滤杯特调·08:00–23:00'},
 
     // 5/9 F1专属
-    { latlng: [-37.8335, 144.9360], color: '#bf360c', emoji: '🏎', label: 'Auscarts',
-      popup: '<b>🏎 Auscarts Racing</b><br>5/9 15:00–17:00<br>50 Salmon St, Port Melbourne<br>AUD 35–45/15分钟·室内卡丁车' },
-    { latlng: [-37.8500, 144.9712], color: '#bf360c', emoji: '🏁', label: 'Albert Park',
-      popup: '<b>🏁 Albert Park F1赛道</b><br>5/9 17:00<br>骑Lime共享单车绕湖一圈（约5km）<br>对照赛道图感受F1路线' },
+    {ll:[-37.8335,144.9360], c:'#bf360c', e:'🏎', l:'Auscarts',
+     p:'<b>🏎 Auscarts Racing</b><br>5/9 约14:30–16:00<br>50 Salmon St, Port Melbourne<br>AUD 35–45/15分钟'},
+    {ll:[-37.8500,144.9712], c:'#bf360c', e:'🏁', l:'Albert Park',
+     p:'<b>🏁 Albert Park F1赛道</b><br>5/9 约16:15<br>Lime共享单车绕湖一圈（约5km）<br>对照赛道图感受F1路线'},
 
-    // 5/9 St Kilda
-    { latlng: [-37.8679, 144.9813], color: '#6a1b9a', emoji: '🐧', label: 'St Kilda企鹅',
-      popup: '<b>🐧 St Kilda Pier 小蓝企鹅</b><br>5/9 日落后约18:00<br>免费·必须提前预约·penguins.org.au<br>每场限150人，现在就订！' },
-    { latlng: [-37.8676, 144.9786], color: '#6a1b9a', emoji: '🍽', label: 'Acland St',
-      popup: '<b>🍽 Acland Street</b><br>5/9 17:45 晚饭<br>St Kilda美食街·各国餐厅' },
-
-    // Industry Beans
-    { latlng: [-37.7978, 144.9826], color: '#4caf50', emoji: '☕', label: 'Industry Beans',
-      popup: '<b>☕ Industry Beans</b><br>5/7傍晚·5/10早餐<br>步行10分钟·07:00开<br>第一杯/最后一杯墨尔本咖啡' },
+    // 5/9 日落+企鹅
+    {ll:[-37.8728,144.9812], c:'#6a1b9a', e:'🌅', l:'Point Ormond',
+     p:'<b>🌅 Point Ormond</b><br>5/9 约17:15·日落首选⭐<br>小红书「现实版疯狂动物城」<br>5月日落约17:30'},
+    {ll:[-37.8679,144.9813], c:'#6a1b9a', e:'🐧', l:'St Kilda企鹅',
+     p:'<b>🐧 St Kilda Pier 小蓝企鹅</b><br>5/9 日落后约18:00<br>免费·必须提前预约·penguins.org.au<br>每场限150人'},
+    {ll:[-37.8676,144.9786], c:'#6a1b9a', e:'🍽', l:'Acland St',
+     p:'<b>🍽 St Kilda · Acland Street</b><br>5/9 晚饭<br>各国餐厅·St Kilda美食街'},
   ];
 
   spots.forEach(s => {
-    L.marker(s.latlng, { icon: makeIcon(s.color, s.emoji, s.label) })
-      .addTo(melbMap)
-      .bindPopup(s.popup);
+    L.marker(s.ll, {icon: makePin(s.c, s.e, s.l)})
+      .addTo(melbMap).bindPopup(s.p, {maxWidth: 220});
   });
 
-  // 5/9路线：酒店→CBD→Auscarts→Albert Park→St Kilda
+  // 5/9路线
   L.polyline([
-    [-37.7982, 144.9786],
-    [-37.8081, 144.9567],
-    [-37.8097, 144.9644],
-    [-37.8182, 144.9660],
-    [-37.8335, 144.9360],
-    [-37.8500, 144.9712],
-    [-37.8679, 144.9813]
-  ], { color: '#e65100', weight: 2.5, dashArray: '6,4', opacity: 0.65 }).addTo(melbMap);
+    [-37.8128,144.9638],[-37.8081,144.9567],
+    [-37.8182,144.9660],[-37.8163,144.9644],
+    [-37.8031,144.9688],[-37.8335,144.9360],
+    [-37.8500,144.9712],[-37.8728,144.9812],[-37.8679,144.9813]
+  ], {color:'#1565c0', weight:2.5, dashArray:'6,4', opacity:0.55}).addTo(melbMap);
+
+  // SkyBus路线
+  L.polyline([[-37.6690,144.8410],[-37.8185,144.9526]],
+    {color:'#546e7a', weight:2, dashArray:'5,4', opacity:0.5}).addTo(melbMap);
 }
 
-// ===== 切换城市 =====
 function switchCity(city) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.map-container').forEach(c => c.classList.remove('active'));
-
   if (city === 'sydney') {
     document.querySelectorAll('.tab')[0].classList.add('active');
     document.getElementById('sydney-container').classList.add('active');
     initSydney();
-    setTimeout(() => sydneyMap.invalidateSize(), 100);
+    setTimeout(() => sydneyMap && sydneyMap.invalidateSize(), 150);
   } else {
     document.querySelectorAll('.tab')[1].classList.add('active');
     document.getElementById('melb-container').classList.add('active');
     initMelb();
-    setTimeout(() => melbMap.invalidateSize(), 100);
+    setTimeout(() => melbMap && melbMap.invalidateSize(), 150);
   }
 }
 
-// 初始化悉尼
 initSydney();
 </script>
 </body>
