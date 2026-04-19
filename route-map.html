@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦘 澳大利亚五一行程地图</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+    background: #f5f5f0;
+    color: #1a1a1a;
+    padding: 20px;
+  }
+  h1 { text-align: center; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { text-align: center; font-size: 13px; color: #888; margin-bottom: 24px; }
+  .day-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+  }
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .day-badge {
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .sy { background: #0066cc; }
+  .road { background: #e65c00; }
+  .melb { background: #6b3fa0; }
+  .transit { background: #555; }
+  .day-title { font-size: 14px; font-weight: 700; }
+  .day-note { font-size: 11px; color: #999; margin-left: auto; white-space: nowrap; }
+
+  .route-scroll { overflow-x: auto; padding-bottom: 4px; }
+  .route-row {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    padding: 6px 0;
+    min-width: max-content;
+  }
+  .stop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 84px;
+    flex-shrink: 0;
+  }
+  .dot {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  .d-home  { background: #e8f5e9; border: 2px solid #4caf50; }
+  .d-sight { background: #e3f2fd; border: 2px solid #1976d2; }
+  .d-food  { background: #fff8e1; border: 2px solid #f9a825; }
+  .d-f1    { background: #fff3e0; border: 2px solid #e65c00; }
+  .d-end   { background: #fce4ec; border: 2px solid #c62828; }
+  .d-hotel { background: #f3e5f5; border: 2px solid #7b1fa2; }
+  .d-plane { background: #e8eaf6; border: 2px solid #3949ab; }
+
+  .sname { font-size: 10.5px; font-weight: 600; text-align: center; margin-top: 5px; line-height: 1.3; color: #222; }
+  .stime { font-size: 10px; color: #999; text-align: center; margin-top: 2px; }
+
+  .conn {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    width: 52px; flex-shrink: 0;
+    padding-top: 10px;
+  }
+  .cline {
+    height: 2px; width: 100%;
+    background: linear-gradient(90deg,#ddd,#bbb);
+    position: relative; margin-bottom: 3px;
+  }
+  .cline::after {
+    content:''; position: absolute;
+    right: -4px; top: -4px;
+    border: 5px solid transparent;
+    border-left: 6px solid #bbb;
+  }
+  .clabel { font-size: 9.5px; color: #aaa; text-align: center; line-height: 1.3; white-space: nowrap; }
+
+  .tip {
+    margin-top: 10px; padding: 8px 12px;
+    background: #fffde7; border-left: 3px solid #fdd835;
+    border-radius: 4px; font-size: 11.5px; color: #555; line-height: 1.6;
+  }
+  .tip.warn { background: #fbe9e7; border-left-color: #e53935; color: #b71c1c; }
+
+  .legend {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin-bottom: 18px; padding: 10px 14px;
+    background: #fff; border-radius: 10px;
+    font-size: 11px; color: #555;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .li { display: flex; align-items: center; gap: 4px; }
+  .ld { width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; }
+
+  table { width:100%; border-collapse:collapse; font-size:12px; margin-top:10px; }
+  th { text-align:left; padding:7px 10px; border-bottom:2px solid #eee; background:#fafafa; font-size:11px; color:#666; }
+  td { padding:7px 10px; border-bottom:1px solid #f5f5f5; }
+  tr:last-child td { border-bottom:none; }
+
+  .section-sub { font-size: 11.5px; font-weight: 700; color: #555; margin: 10px 0 6px; }
+</style>
+</head>
+<body>
+
+<h1>🦘 澳大利亚五一每日路线地图</h1>
+<p class="subtitle">悉尼 Ermington 出发 · 墨尔本 Fitzroy · Solo行程 · 最终版</p>
+
+<div class="legend">
+  <div class="li"><div class="ld" style="background:#e8f5e9;border:2px solid #4caf50">🏠</div>出发/住宿</div>
+  <div class="li"><div class="ld" style="background:#e3f2fd;border:2px solid #1976d2">📍</div>景点</div>
+  <div class="li"><div class="ld" style="background:#fff8e1;border:2px solid #f9a825">🍽</div>餐饮咖啡</div>
+  <div class="li"><div class="ld" style="background:#fff3e0;border:2px solid #e65c00">🏎</div>F1专属</div>
+  <div class="li"><div class="ld" style="background:#fce4ec;border:2px solid #c62828">🔚</div>返回</div>
+</div>
+
+<!-- 5/2 -->
+<div class="day-section">
+  <div class="day-header">
+    <span class="day-badge sy">5/2 周六</span>
+    <span class="day-title">抵达日</span>
+    <span class="day-note">中午落地，轻松</span>
+  </div>
+  <div class="route-scroll"><div class="route-row">
+    <div class="stop"><div class="dot d-plane">✈️</div><div class="sname">悉尼机场</div><div class="stime">约13:00</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚇 Airport Link<br>+T1 约40分<br>AUD 20</div></div>
+    <div class="stop"><div class="dot d-hotel">🏠</div><div class="sname">Ermington<br>姐姐家</div><div class="stime">约14:30</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 步行</div></div>
+    <div class="stop"><div class="dot d-sight">🌊</div><div class="sname">帕拉玛塔<br>河边散步</div><div class="stime">下午</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚇 T1 30分<br>可选</div></div>
+    <div class="stop"><div class="dot d-sight">🎭</div><div class="sname">Circular Quay<br>歌剧院初见</div><div class="stime">傍晚（可选）</div></div>
+  </div></div>
+  <div class="tip">💡 落地即买Opal Card（机场到达大厅）。第一天轻松为主，就近散步调时差。</div>
+</div>
+
+<!-- 5/3 -->
+<div class="day-section">
+  <div class="day-header">
+    <span class="day-badge sy">5/3 周六</span>
+    <span class="day-title">Gerringong + Kiama 一日游 🌊</span>
+    <span class="day-note">🚗 自驾版，可顺路摸考拉</span>
+  </div>
+  <div class="route-scroll"><div class="route-row">
+    <div class="stop"><div class="dot d-home">🏠</div><div class="sname">Ermington</div><div class="stime">08:30</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚗 Princes Hwy<br>约1小时20分</div></div>
+    <div class="stop"><div class="dot d-sight">🐨</div><div class="sname">Symbio<br>Wildlife Park<br>（可选+摸考拉）</div><div class="stime">09:50–11:30<br>AUD 40+25</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚗 约20分</div></div>
+    <div class="stop"><div class="dot d-sight">💦</div><div class="sname">Kiama<br>Blowhole</div><div class="stime">查潮汐！</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 串联</div></div>
+    <div class="stop"><div class="dot d-food">🍽</div><div class="sname">Kiama<br>Harbour午餐</div><div class="stime">13:00</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚗 10分钟</div></div>
+    <div class="stop"><div class="dot d-sight">🏔</div><div class="sname">Gerringong<br>Lookout</div><div class="stime">14:15</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚗 5分钟</div></div>
+    <div class="stop"><div class="dot d-sight">🏄</div><div class="sname">Werri Beach<br>Seven Mile</div><div class="stime">14:45</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚗 约1.5小时</div></div>
+    <div class="stop"><div class="dot d-end">🔚</div><div class="sname">Ermington</div><div class="stime">约18:30</div></div>
+  </div></div>
+  <div class="tip warn">⚠️ 出发前必查：搜索"Kiama Blowhole tide times May 3 2026"，涨潮时才壮观。如加Symbio，建议09:30开园就到。</div>
+</div>
+
+<!-- 5/4 -->
+<div class="day-section">
+  <div class="day-header">
+    <span class="day-badge sy">5/4 周日</span>
+    <span class="day-title">海港经典环线</span>
+    <span class="day-note">The Rocks 周日市集 ✅</span>
+  </div>
+  <div class="route-scroll"><div class="route-row">
+    <div class="stop"><div class="dot d-home">🏠</div><div class="sname">Ermington</div><div class="stime">08:45</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚇+🚌<br>约45分<br>AUD 4</div></div>
+    <div class="stop"><div class="dot d-sight">📸</div><div class="sname">麦考利<br>夫人角</div><div class="stime">09:30 免费</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 15分钟</div></div>
+    <div class="stop"><div class="dot d-sight">🌿</div><div class="sname">皇家<br>植物园</div><div class="stime">10:00 免费</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 10分钟</div></div>
+    <div class="stop"><div class="dot d-sight">🎭</div><div class="sname">歌剧院</div><div class="stime">10:45</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 5分钟</div></div>
+    <div class="stop"><div class="dot d-food">🍽</div><div class="sname">Opera Bar<br>午餐</div><div class="stime">12:30</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 5分钟</div></div>
+    <div class="stop"><div class="dot d-sight">🛍</div><div class="sname">The Rocks<br>周日市集</div><div class="stime">14:00 免费</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 10分钟</div></div>
+    <div class="stop"><div class="dot d-sight">🌉</div><div class="sname">海港大桥<br>徒步穿越</div><div class="stime">15:30 免费</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚇 约45分</div></div>
+    <div class="stop"><div class="dot d-end">🔚</div><div class="sname">Ermington</div><div class="stime">18:00</div></div>
+  </div></div>
+</div>
+
+<!-- 5/5 -->
+<div class="day-section">
+  <div class="day-header">
+    <span class="day-badge sy">5/5 周一</span>
+    <span class="day-title">Taronga Zoo + Surry Hills街区</span>
+    <span class="day-note">上午动物最活跃</span>
+  </div>
+  <div class="route-scroll"><div class="route-row">
+    <div class="stop"><div class="dot d-home">🏠</div><div class="sname">Ermington</div><div class="stime">09:00</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚇+⛴<br>约60分<br>AUD 8</div></div>
+    <div class="stop"><div class="dot d-sight">🦁</div><div class="sname">Taronga Zoo<br>考拉·袋鼠</div><div class="stime">10:00–13:00<br>AUD 55</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">⛴+🚌<br>约35分钟</div></div>
+    <div class="stop"><div class="dot d-food">🍽</div><div class="sname">Surry Hills<br>Crown St午餐</div><div class="stime">14:00</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 即是</div></div>
+    <div class="stop"><div class="dot d-sight">🛍</div><div class="sname">Surry Hills<br>街区漫步⭐</div><div class="stime">15:00 免费</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚇 约45分</div></div>
+    <div class="stop"><div class="dot d-end">🔚</div><div class="sname">Ermington</div><div class="stime">18:30</div></div>
+  </div></div>
+  <div class="tip">💡 Taronga Zoo考拉Encounter需提前官网预订，AUD 75加购。Surry Hills是悉尼最有本地腔调的街区。</div>
+</div>
+
+<!-- 5/6 -->
+<div class="day-section">
+  <div class="day-header">
+    <span class="day-badge sy">5/6 周二</span>
+    <span class="day-title">Bondi 海岸步道 + Manly 渡轮</span>
+    <span class="day-note">步道早上走，渡轮傍晚光线最美</span>
+  </div>
+  <div class="route-scroll"><div class="route-row">
+    <div class="stop"><div class="dot d-home">🏠</div><div class="sname">Ermington</div><div class="stime">08:30</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚇 T1→<br>Bondi Jct<br>+公交 50分</div></div>
+    <div class="stop"><div class="dot d-food">☕</div><div class="sname">Bondi<br>早午餐</div><div class="stime">09:20</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 步道<br>6km 约2小时</div></div>
+    <div class="stop"><div class="dot d-sight">🌊</div><div class="sname">Tamarama<br>Bronte<br>Clovelly</div><div class="stime">途中各湾</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 继续</div></div>
+    <div class="stop"><div class="dot d-food">🍽</div><div class="sname">Coogee<br>午餐发呆</div><div class="stime">12:30</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚌 370路<br>约30分钟</div></div>
+    <div class="stop"><div class="dot d-sight">⛴</div><div class="sname">Circular Quay<br>乘Manly渡轮</div><div class="stime">14:45</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">⛴ F1渡轮<br>30分钟<br>AUD 8.6</div></div>
+    <div class="stop"><div class="dot d-sight">🏖</div><div class="sname">Manly Beach<br>+ 咖啡</div><div class="stime">15:15</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">⛴ 渡轮返回<br>30分钟<br>AUD 8.6</div></div>
+    <div class="stop"><div class="dot d-sight">🌅</div><div class="sname">Circular Quay<br>傍晚海港</div><div class="stime">17:00</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚇 T1 30分</div></div>
+    <div class="stop"><div class="dot d-end">🔚</div><div class="sname">Ermington</div><div class="stime">17:30</div></div>
+  </div></div>
+</div>
+
+<!-- 5/7 -->
+<div class="day-section">
+  <div class="day-header">
+    <span class="day-badge transit">5/7 周四</span>
+    <span class="day-title">转场：悉尼 → 墨尔本</span>
+    <span class="day-note">傍晚抵达Fitzroy</span>
+  </div>
+  <div class="route-scroll"><div class="route-row">
+    <div class="stop"><div class="dot d-home">🏠</div><div class="sname">Ermington</div><div class="stime">上午</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚇 T1→Central<br>→Airport Link<br>约40分 AUD 20</div></div>
+    <div class="stop"><div class="dot d-plane">✈️</div><div class="sname">悉尼机场<br>SYD</div><div class="stime">提前1.5小时</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">✈️ 国内航班<br>约1.5小时</div></div>
+    <div class="stop"><div class="dot d-plane">✈️</div><div class="sname">墨尔本机场<br>MEL</div><div class="stime">落地</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚌 SkyBus<br>约30分<br>AUD 22</div></div>
+    <div class="stop"><div class="dot d-hotel">🏨</div><div class="sname">The StandardX<br>Fitzroy</div><div class="stime">入住</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 步行10分</div></div>
+    <div class="stop"><div class="dot d-food">☕</div><div class="sname">Industry Beans<br>第一杯咖啡</div><div class="stime">傍晚</div></div>
+  </div></div>
+  <div class="tip">💡 到墨尔本买Myki Card（机场或7-Eleven）。</div>
+</div>
+
+<!-- 5/8 -->
+<div class="day-section">
+  <div class="day-header">
+    <span class="day-badge road">5/8 周五</span>
+    <span class="day-title">大洋路一日游 ✅ 已订</span>
+    <span class="day-note">跟团全天</span>
+  </div>
+  <div class="route-scroll"><div class="route-row">
+    <div class="stop"><div class="dot d-hotel">🏨</div><div class="sname">The StandardX<br>集合</div><div class="stime">约07:30</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚌 大巴</div></div>
+    <div class="stop"><div class="dot d-sight">🌊</div><div class="sname">Apollo Bay<br>阿波罗湾</div><div class="stime">途中</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚌 继续</div></div>
+    <div class="stop"><div class="dot d-food">🍽</div><div class="sname">Port Campbell<br>午餐小镇</div><div class="stime">中午</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚌 继续</div></div>
+    <div class="stop"><div class="dot d-sight">🗿</div><div class="sname">十二使徒岩<br>⭐</div><div class="stime">下午</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 串联</div></div>
+    <div class="stop"><div class="dot d-sight">🌉</div><div class="sname">London Bridge<br>Loch Ard</div><div class="stime">下午</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚌 返程</div></div>
+    <div class="stop"><div class="dot d-end">🔚</div><div class="sname">The StandardX</div><div class="stime">约19:30</div></div>
+  </div></div>
+</div>
+
+<!-- 5/9 -->
+<div class="day-section">
+  <div class="day-header">
+    <span class="day-badge melb">5/9 周六</span>
+    <span class="day-title">城区漫步 + Auscarts 🏎 + Albert Park 🏁 + 企鹅 🐧</span>
+    <span class="day-note">睡到自然醒</span>
+  </div>
+  <div class="route-scroll"><div class="route-row">
+    <div class="stop"><div class="dot d-food">☕</div><div class="sname">Industry Beans<br>早餐</div><div class="stime">自然醒</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 25分钟</div></div>
+    <div class="stop"><div class="dot d-sight">🛒</div><div class="sname">Queen Victoria<br>Market</div><div class="stime">上午 免费<br>06:00–15:00</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚃 电车<br>免费区</div></div>
+    <div class="stop"><div class="dot d-food">☕</div><div class="sname">Degraves St<br>午饭+咖啡</div><div class="stime">中午</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 5分钟</div></div>
+    <div class="stop"><div class="dot d-sight">📚</div><div class="sname">State Library<br>+Hosier Lane</div><div class="stime">13:30 免费</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚕 Uber<br>约20分</div></div>
+    <div class="stop"><div class="dot d-f1">🏎</div><div class="sname">Auscarts<br>卡丁车</div><div class="stime">15:00–17:00<br>AUD 35–45</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 步行<br>约10分</div></div>
+    <div class="stop"><div class="dot d-f1">🏁</div><div class="sname">Albert Park<br>F1赛道骑车</div><div class="stime">17:00<br>约AUD 5</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶/🚃<br>约15分</div></div>
+    <div class="stop"><div class="dot d-food">🍽</div><div class="sname">St Kilda<br>Acland St晚饭</div><div class="stime">17:45</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 5分钟</div></div>
+    <div class="stop"><div class="dot d-sight">🐧</div><div class="sname">St Kilda Pier<br>小蓝企鹅</div><div class="stime">日落后约18:00<br>免费</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚃 电车<br>约25分</div></div>
+    <div class="stop"><div class="dot d-end">🔚</div><div class="sname">The StandardX</div><div class="stime">约20:30</div></div>
+  </div></div>
+  <div class="tip warn">⚠️ 企鹅预约紧张！立即去 penguins.org.au 预约5/9场次（每场150人）。若无票改订GetYourGuide "Puffing Billy + Phillip Island"合并团。</div>
+</div>
+
+<!-- 5/10 -->
+<div class="day-section">
+  <div class="day-header">
+    <span class="day-badge transit">5/10 周日</span>
+    <span class="day-title">回程日 ✈️ 11:35起飞</span>
+    <span class="day-note">08:30前必须出门</span>
+  </div>
+  <div class="route-scroll"><div class="route-row">
+    <div class="stop"><div class="dot d-hotel">🏨</div><div class="sname">The StandardX<br>退房</div><div class="stime">约07:00</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚶 步行10分</div></div>
+    <div class="stop"><div class="dot d-food">☕</div><div class="sname">Industry Beans<br>告别咖啡</div><div class="stime">07:00–08:00<br>07:00开门</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">🚕 Uber<br>约35分<br>AUD 50–60<br>（大箱子）</div></div>
+    <div class="stop"><div class="dot d-plane">✈️</div><div class="sname">墨尔本机场<br>MEL</div><div class="stime">09:05前到<br>国际线提前2.5小时</div></div>
+    <div class="conn"><div class="cline"></div><div class="clabel">✈️ MF804<br>MF8501</div></div>
+    <div class="stop"><div class="dot d-end">🏠</div><div class="sname">上海<br>到家！</div><div class="stime">✈️</div></div>
+  </div></div>
+  <div class="tip warn">⚠️ 11:35起飞，国际线提前2.5小时=09:05到机场，08:30前必须出门。QVM周日09:00才开来不及，伴手礼5/9上午QVM搞定。大箱子直接打Uber去机场。</div>
+</div>
+
+<!-- 交通速查 -->
+<div class="day-section">
+  <div class="day-header">
+    <span class="day-badge transit">📊</span>
+    <span class="day-title">Ermington → 悉尼各地交通速查</span>
+  </div>
+  <table>
+    <tr><th>目的地</th><th>方式</th><th>时间</th><th>费用</th></tr>
+    <tr><td>Circular Quay（市区码头）</td><td>步行→Rydalmere→T1直达</td><td>约45分钟</td><td>AUD 4</td></tr>
+    <tr><td>Central Station</td><td>步行→Rydalmere→T1直达</td><td>约37分钟</td><td>AUD 3</td></tr>
+    <tr><td>Bondi Beach</td><td>步行→Rydalmere→T1→Bondi Jct→公交</td><td>约65分钟</td><td>AUD 5</td></tr>
+    <tr><td>Taronga Zoo</td><td>步行→Rydalmere→T1→CQ→渡轮</td><td>约60分钟</td><td>AUD 8</td></tr>
+    <tr><td>Manly（经渡轮）</td><td>步行→Rydalmere→T1→CQ→Ferry F1</td><td>约75分钟</td><td>AUD 13</td></tr>
+    <tr><td>悉尼机场</td><td>步行→Rydalmere→T1→Central→Airport Link</td><td>约55分钟</td><td>AUD 20</td></tr>
+  </table>
+</div>
+
+<p style="text-align:center;font-size:11px;color:#bbb;margin-top:16px;padding-bottom:20px">
+  最后更新：2026-04-18 23:20 · 全程Solo · 5/10飞机11:35
+</p>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦘 Effy的澳大利亚五一行程</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "PingFang SC", sans-serif;
+    background: linear-gradient(135deg, #e8f4f8 0%, #f0f0eb 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .container {
+    max-width: 480px;
+    width: 100%;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .emoji { font-size: 56px; display: block; margin-bottom: 12px; }
+  h1 { font-size: 24px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+  .sub { font-size: 14px; color: #888; }
+  .dates {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: #fff;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: #555;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+  .card-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    background: #f5f5f0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-text h2 { font-size: 15px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+  .card-text p { font-size: 12.5px; color: #888; line-height: 1.5; }
+  .card-arrow { margin-left: auto; color: #ccc; font-size: 18px; flex-shrink: 0; }
+  .card.blue .card-icon { background: #e3f2fd; }
+  .card.purple .card-icon { background: #f3e5f5; }
+  .card.green .card-icon { background: #e8f5e9; }
+  .footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 11px;
+    color: #bbb;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <span class="emoji">🦘</span>
+    <h1>澳大利亚五一行程</h1>
+    <p class="sub">Effy · 2026 Labor Day</p>
+    <div class="dates">
+      <span class="tag">✈️ 5/1 上海出发</span>
+      <span class="tag">🏖 悉尼 5/2–5/7</span>
+      <span class="tag">🏙 墨尔本 5/7–5/10</span>
+    </div>
+  </div>
+
+  <div class="cards">
+    <a href="每日路线地图.html" class="card blue">
+      <div class="card-icon">🗓</div>
+      <div class="card-text">
+        <h2>每日路线图</h2>
+        <p>按天查看出发时间、景点顺序、交通方式和费用</p>
+      </div>
+      <span class="card-arrow">›</span>
+    </a>
+
+    <a href="城市方位地图.html" class="card purple">
+      <div class="card-icon">🗺</div>
+      <div class="card-text">
+        <h2>城市方位地图</h2>
+        <p>悉尼 & 墨尔本景点位置一览，了解各地方位关系</p>
+      </div>
+      <span class="card-arrow">›</span>
+    </a>
+
+    <a href="https://docs.qq.com/aio/DWUZBd3RqZ0t3Q05w" target="_blank" class="card green">
+      <div class="card-icon">📋</div>
+      <div class="card-text">
+        <h2>完整行程文档</h2>
+        <p>腾讯文档版 · 含详细说明、咖啡清单、出发前待办</p>
+      </div>
+      <span class="card-arrow">›</span>
+    </a>
+  </div>
+
+  <div class="footer">
+    悉尼住：Ermington · 墨尔本住：The StandardX, Fitzroy
+  </div>
+</div>
+</body>
+</html>
