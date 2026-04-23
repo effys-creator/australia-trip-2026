@@ -15,63 +15,98 @@
     justify-content: center;
     padding: 24px;
   }
-  .container {
-    max-width: 480px;
+
+  /* ===== 密码锁界面 ===== */
+  #lock-screen {
+    max-width: 360px;
     width: 100%;
-  }
-  .header {
     text-align: center;
-    margin-bottom: 32px;
   }
+  #lock-screen .lock-emoji { font-size: 52px; display: block; margin-bottom: 16px; }
+  #lock-screen h2 { font-size: 20px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+  #lock-screen p { font-size: 13px; color: #999; margin-bottom: 28px; }
+
+  .pin-display {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .pin-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #e0e0d8;
+    border: 2px solid #ccc;
+    transition: all 0.2s;
+  }
+  .pin-dot.filled { background: #1a1a1a; border-color: #1a1a1a; }
+  .pin-dot.error { background: #e53935; border-color: #e53935; }
+
+  .numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  .num-btn {
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 72px; height: 72px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a1a1a;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.1s;
+    margin: 0 auto;
+  }
+  .num-btn:active { transform: scale(0.93); background: #f0f0f0; }
+  .num-btn.del { font-size: 18px; color: #888; background: transparent; box-shadow: none; }
+  .num-btn.empty { pointer-events: none; background: transparent; box-shadow: none; }
+
+  .error-msg {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #e53935;
+    height: 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .error-msg.show { opacity: 1; }
+
+  /* ===== 主内容 ===== */
+  #main-content { display: none; max-width: 480px; width: 100%; }
+
+  .container { width: 100%; }
+  .header { text-align: center; margin-bottom: 32px; }
   .emoji { font-size: 56px; display: block; margin-bottom: 12px; }
   h1 { font-size: 24px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
   .sub { font-size: 14px; color: #888; }
   .dates {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 10px;
-    flex-wrap: wrap;
+    display: flex; justify-content: center;
+    gap: 8px; margin-top: 10px; flex-wrap: wrap;
   }
   .tag {
-    background: #fff;
-    border-radius: 20px;
-    padding: 4px 12px;
-    font-size: 12px;
-    color: #555;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    background: #fff; border-radius: 20px;
+    padding: 4px 12px; font-size: 12px;
+    color: #555; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   }
-  .cards {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
+  .cards { display: flex; flex-direction: column; gap: 14px; }
   .card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 20px 22px;
+    background: #fff; border-radius: 16px; padding: 20px 22px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 16px;
     transition: transform 0.15s, box-shadow 0.15s;
   }
-  .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
   .card-icon {
-    font-size: 32px;
-    flex-shrink: 0;
-    width: 52px;
-    height: 52px;
-    background: #f5f5f0;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 32px; flex-shrink: 0;
+    width: 52px; height: 52px;
+    background: #f5f5f0; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
   }
   .card-text h2 { font-size: 15px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
   .card-text p { font-size: 12.5px; color: #888; line-height: 1.5; }
@@ -79,59 +114,143 @@
   .card.blue .card-icon { background: #e3f2fd; }
   .card.purple .card-icon { background: #f3e5f5; }
   .card.green .card-icon { background: #e8f5e9; }
-  .footer {
-    text-align: center;
-    margin-top: 24px;
-    font-size: 11px;
-    color: #bbb;
-  }
+  .footer { text-align: center; margin-top: 24px; font-size: 11px; color: #bbb; }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <span class="emoji">🦘</span>
-    <h1>澳大利亚五一行程</h1>
-    <p class="sub">Effy · 2026 Labor Day</p>
-    <div class="dates">
-      <span class="tag">✈️ 5/1 上海出发</span>
-      <span class="tag">🏖 悉尼 5/2–5/7</span>
-      <span class="tag">🏙 墨尔本 5/7–5/10</span>
+
+<!-- 密码锁界面 -->
+<div id="lock-screen">
+  <span class="lock-emoji">🔐</span>
+  <h2>请输入访问密码</h2>
+  <p>Effy's Australia Trip 2026</p>
+
+  <div class="pin-display">
+    <div class="pin-dot" id="d0"></div>
+    <div class="pin-dot" id="d1"></div>
+    <div class="pin-dot" id="d2"></div>
+    <div class="pin-dot" id="d3"></div>
+  </div>
+
+  <div class="numpad">
+    <button class="num-btn" onclick="pressNum('1')">1</button>
+    <button class="num-btn" onclick="pressNum('2')">2</button>
+    <button class="num-btn" onclick="pressNum('3')">3</button>
+    <button class="num-btn" onclick="pressNum('4')">4</button>
+    <button class="num-btn" onclick="pressNum('5')">5</button>
+    <button class="num-btn" onclick="pressNum('6')">6</button>
+    <button class="num-btn" onclick="pressNum('7')">7</button>
+    <button class="num-btn" onclick="pressNum('8')">8</button>
+    <button class="num-btn" onclick="pressNum('9')">9</button>
+    <button class="num-btn empty"></button>
+    <button class="num-btn" onclick="pressNum('0')">0</button>
+    <button class="num-btn del" onclick="pressDelete()">⌫</button>
+  </div>
+
+  <div class="error-msg" id="error-msg">密码错误，请重试</div>
+</div>
+
+<!-- 主内容 -->
+<div id="main-content">
+  <div class="container">
+    <div class="header">
+      <span class="emoji">🦘</span>
+      <h1>澳大利亚五一行程</h1>
+      <p class="sub">Effy · 2026 Labor Day</p>
+      <div class="dates">
+        <span class="tag">✈️ 5/1 上海出发</span>
+        <span class="tag">🏖 悉尼 5/2–5/7</span>
+        <span class="tag">🏙 墨尔本 5/7–5/10</span>
+      </div>
+    </div>
+
+    <div class="cards">
+      <a href="每日路线地图.html" class="card blue">
+        <div class="card-icon">🗓</div>
+        <div class="card-text">
+          <h2>每日路线图</h2>
+          <p>按天查看出发时间、景点顺序、交通方式和费用</p>
+        </div>
+        <span class="card-arrow">›</span>
+      </a>
+
+      <a href="城市方位地图.html" class="card purple">
+        <div class="card-icon">🗺</div>
+        <div class="card-text">
+          <h2>城市方位地图</h2>
+          <p>悉尼 & 墨尔本景点位置一览，了解各地方位关系</p>
+        </div>
+        <span class="card-arrow">›</span>
+      </a>
+
+      <a href="https://docs.qq.com/aio/DWUZBd3RqZ0t3Q05w" target="_blank" class="card green">
+        <div class="card-icon">📋</div>
+        <div class="card-text">
+          <h2>完整行程文档</h2>
+          <p>腾讯文档版 · 含详细说明、咖啡清单、出发前待办</p>
+        </div>
+        <span class="card-arrow">›</span>
+      </a>
+    </div>
+
+    <div class="footer">
+      悉尼住：Ermington · 墨尔本住：The StandardX, Fitzroy
     </div>
   </div>
-
-  <div class="cards">
-    <a href="每日路线地图.html" class="card blue">
-      <div class="card-icon">🗓</div>
-      <div class="card-text">
-        <h2>每日路线图</h2>
-        <p>按天查看出发时间、景点顺序、交通方式和费用</p>
-      </div>
-      <span class="card-arrow">›</span>
-    </a>
-
-    <a href="城市方位地图.html" class="card purple">
-      <div class="card-icon">🗺</div>
-      <div class="card-text">
-        <h2>城市方位地图</h2>
-        <p>悉尼 & 墨尔本景点位置一览，了解各地方位关系</p>
-      </div>
-      <span class="card-arrow">›</span>
-    </a>
-
-    <a href="https://docs.qq.com/aio/DWUZBd3RqZ0t3Q05w" target="_blank" class="card green">
-      <div class="card-icon">📋</div>
-      <div class="card-text">
-        <h2>完整行程文档</h2>
-        <p>腾讯文档版 · 含详细说明、咖啡清单、出发前待办</p>
-      </div>
-      <span class="card-arrow">›</span>
-    </a>
-  </div>
-
-  <div class="footer">
-    悉尼住：Ermington · 墨尔本住：The StandardX, Fitzroy
-  </div>
 </div>
+
+<script>
+const PASS = '0411';
+let input = '';
+
+// 检查本次会话是否已验证过
+if (sessionStorage.getItem('au_auth') === '1') {
+  document.getElementById('lock-screen').style.display = 'none';
+  document.getElementById('main-content').style.display = 'block';
+}
+
+function updateDots() {
+  for (let i = 0; i < 4; i++) {
+    const dot = document.getElementById('d' + i);
+    dot.classList.remove('filled', 'error');
+    if (i < input.length) dot.classList.add('filled');
+  }
+}
+
+function pressNum(n) {
+  if (input.length >= 4) return;
+  input += n;
+  updateDots();
+  if (input.length === 4) {
+    setTimeout(checkPass, 150);
+  }
+}
+
+function pressDelete() {
+  if (input.length > 0) {
+    input = input.slice(0, -1);
+    updateDots();
+    document.getElementById('error-msg').classList.remove('show');
+  }
+}
+
+function checkPass() {
+  if (input === PASS) {
+    sessionStorage.setItem('au_auth', '1');
+    document.getElementById('lock-screen').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+  } else {
+    // 错误震动效果
+    for (let i = 0; i < 4; i++) {
+      document.getElementById('d' + i).classList.add('error');
+    }
+    document.getElementById('error-msg').classList.add('show');
+    setTimeout(() => {
+      input = '';
+      updateDots();
+    }, 800);
+  }
+}
+</script>
 </body>
 </html>
